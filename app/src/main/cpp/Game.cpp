@@ -1,6 +1,8 @@
 #include "Game.hpp"
+#include "raylib.h"
 
-Game::Game() : inGame(false)
+Game::Game() : inGame(false),
+               startButton((float)GetMonitorWidth(0) / 2, (float)GetMonitorHeight(0) / 2, 150, 150, "Start")
 {
     // Vous pouvez initialiser ici si nécessaire
 }
@@ -18,16 +20,24 @@ void Game::actualize()
     }
     else    // On est sur le menu
     {
-
+        if (startButton.isPressed())
+            inGame = true;
     }
 }
 
 void Game::Draw()
 {
-    player.Draw();
+    if (inGame)
+    {
+        player.Draw();
 
-    for (int i = 0; i < ennemies.size(); ++i)
-        ennemies[i]->Draw();
+        for (int i = 0; i < ennemies.size(); ++i)
+            ennemies[i]->Draw();
+    }
+    else
+    {
+        startButton.Draw();
+    }
 }
 
 void Game::checkSpawn()

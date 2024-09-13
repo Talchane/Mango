@@ -4,6 +4,7 @@
 #include <vector>
 #include "Personnage.hpp"
 #include "Ennemy.hpp"
+#include "Bouton.hpp"
 
 class Game {
 public:
@@ -15,6 +16,7 @@ public:
     bool inGame;
 
 private:
+    Bouton startButton;
     void checkSpawn();	// Vérifie l'apparition de nouveaux ennemis
     void checkCollisionsTirs();	// Check les collisions entre les tirs et les ennemis
 

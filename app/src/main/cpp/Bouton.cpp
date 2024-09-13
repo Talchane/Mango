@@ -1,9 +1,8 @@
 #include "Bouton.hpp"
 
 Bouton::Bouton(float x, float y, float width, float height, const char* text)
-    : buttonRect{ x, y, width, height },
+    : buttonRect{ x - width / 2, y - height / 2, width, height },
       buttonColor(BLUE),
-      buttonHoverColor(DARKBLUE),
       buttonTextColor(WHITE),
       buttonText(text)
 {
@@ -11,33 +10,18 @@ Bouton::Bouton(float x, float y, float width, float height, const char* text)
 
 void Bouton::Draw() const
 {
-    // Vérifiez si l'écran tactile touche le bouton
-    Vector2 touchPosition = { 0, 0 };
-    bool isTouching = false;
-    int touchCount = GetTouchPointCount(); // Obtenez le nombre de points de contact
+    DrawRectangleRec(buttonRect, buttonColor);
 
-    for (int i = 0; i < touchCount; i++)
-    {
-        touchPosition = GetTouchPosition(i);
-        if (CheckCollisionPointRec(touchPosition, buttonRect))
-        {
-            isTouching = true;
-            break;
-        }
-    }
+    int textWidth = MeasureText(buttonText, 30);
+    int textHeight = 30; // Hauteur du texte, à ajuster si nécessaire
 
-    // Dessinez le bouton avec la couleur appropriée
-    if (isTouching)
-    {
-        DrawRectangleRec(buttonRect, buttonHoverColor);
-    }
-    else
-    {
-        DrawRectangleRec(buttonRect, buttonColor);
-    }
+    // Calculer la position du texte pour le centrer
+    Vector2 textPosition = {
+            buttonRect.x + (buttonRect.width - textWidth) / 2,
+            buttonRect.y + (buttonRect.height - textHeight) / 2
+    };
 
-    // Dessinez le texte du bouton
-    DrawText(buttonText, buttonRect.x + 10, buttonRect.y + 15, 20, buttonTextColor);
+    DrawText(buttonText, textPosition.x, textPosition.y, 30, buttonTextColor);
 }
 
 bool Bouton::isPressed() const
@@ -50,12 +34,7 @@ bool Bouton::isPressed() const
     {
         touchPosition = GetTouchPosition(i);
         if (CheckCollisionPointRec(touchPosition, buttonRect))
-        {
-            if (IsTouchReleased(i))
-            {
-                return true; // Le bouton est pressé et relâché
-            }
-        }
+            return true;
     }
     return false; // Le bouton n'est pas pressé
 }

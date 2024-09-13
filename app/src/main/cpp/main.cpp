@@ -19,14 +19,11 @@ int main()
     InitWindow(0, 0, "Mango");
     SetTargetFPS(144);
 
-    Bouton myButton(350, 250, 100, 50, "Tap Me");
-
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         game.Draw();
-        myButton.Draw();
         EndDrawing();
     }
 

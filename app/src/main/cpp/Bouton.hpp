@@ -18,7 +18,6 @@ public:
 private:
     Rectangle buttonRect; // Rectangle représentant le bouton
     Color buttonColor;    // Couleur du bouton
-    Color buttonHoverColor; // Couleur du bouton lorsqu'il est survolé
     Color buttonTextColor;  // Couleur du texte du bouton
     const char* buttonText; // Texte affiché sur le bouton
 };
