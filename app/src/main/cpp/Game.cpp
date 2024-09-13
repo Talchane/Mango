@@ -1,22 +1,22 @@
 #include "Game.hpp"
 #include "raylib.h"
 
-Game::Game() : inGame(false),
-               startButton((float)GetMonitorWidth(0) / 2, (float)GetMonitorHeight(0) / 2, 150, 150, "Start")
+Game::Game(Vector2 const& ScreenDims) : inGame(false),
+               startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, "Start")
 {
     // Vous pouvez initialiser ici si nécessaire
 }
 
-void Game::actualize()
+void Game::actualize(const float dt)
 {
     if (inGame) // Si on est en partie
     {
         checkSpawn();               // Check apparition des ennemis
-        player.actualize();         // Actions du joueur (tirer, changer d'arme), déplacement et animation des balles
+        player.actualize(dt);       // Actions du joueur (tirer, changer d'arme), déplacement et animation des balles
         checkCollisionsTirs();      // Check des collisions entre les balles et les ennemis
 
         for (int i = 0; i < ennemies.size(); ++i)
-            ennemies[i]->actualize();   // Actualise les attaques et les animations des ennemis
+            ennemies[i]->actualize(dt);   // Actualise les attaques et les animations des ennemis
     }
     else    // On est sur le menu
     {

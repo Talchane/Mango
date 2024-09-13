@@ -7,7 +7,7 @@ Ennemy::Ennemy()
 }
 
 // Méthode actualize
-void Ennemy::actualize()
+void Ennemy::actualize(const float dt)
 {
     // Implémentez la logique spécifique à l'ennemi ici ou laissez-le vide si c'est une classe de base
 }

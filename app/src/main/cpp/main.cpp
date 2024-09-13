@@ -2,9 +2,11 @@
 #include "raymob.h"
 #include <cmath>
 #include <vector>
+#include <string>
 
 using namespace std;
 
+#include "Clock.hpp"
 #include "Bouton.hpp"
 #include "Ball.hpp"
 #include "Personnage.hpp"
@@ -14,15 +16,23 @@ using namespace std;
 
 int main()
 {
-    Game game;
 
     InitWindow(0, 0, "Mango");
     SetTargetFPS(144);
 
+    Vector2 ScreenDims {(float)GetScreenWidth(), (float)GetScreenHeight() };
+
+    Game game(ScreenDims);
+
+    Clock clock;
     while (!WindowShouldClose())
     {
+        double dt { clock.restart() };
+        game.actualize(2);
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
         game.Draw();
         EndDrawing();
     }

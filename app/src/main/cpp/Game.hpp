@@ -8,10 +8,10 @@
 
 class Game {
 public:
-    Game();
+    Game(Vector2 const& ScreenDims);
 
-    void actualize();	// Actualise tout
-    void Draw();		// Affiche tout
+    void actualize(const float dt);	// Actualise tout
+    void Draw();    // Affiche tout
 
     bool inGame;
 

@@ -11,10 +11,12 @@ public:
     Personnage();
 
     void Draw();
-    void actualize();
+    void actualize(const float dt);
 
 private:
     std::vector<Ball*> balles;
+    float rotation;
+    Vector2 position;
 };
 
 #endif // PERSONNAGE_HPP
