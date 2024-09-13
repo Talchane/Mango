@@ -1,39 +1,35 @@
 #include "raylib.h"
 #include "raymob.h"
-#include <iostream>
+#include <cmath>
 #include <vector>
 
 using namespace std;
 
+#include "Bouton.hpp"
+#include "Ball.hpp"
+#include "Personnage.hpp"
+#include "Ennemy.hpp"
+#include "Game.hpp"
+
+
 int main()
 {
-    // Initialize the window
-    InitWindow(800, 600, "C++ Raylib Example");
-    SetTargetFPS(60);
+    Game game;
 
-    // Initialize the screen size after InitWindow
-    Vector2 Screen = { (float)GetScreenWidth(), (float)GetScreenHeight() };
+    InitWindow(0, 0, "Mango");
+    SetTargetFPS(144);
 
-    // Main game loop
+    Bouton myButton(350, 250, 100, 50, "Tap Me");
+
     while (!WindowShouldClose())
     {
-        if (GetTouchPointCount() > 0)
-            Vibrate(0.1f);
-
-        Vector2 center = { Screen.x / 2, Screen.y / 2 };
-        Color customColor = { 120, 120, 120, 255 };
-        Vector2 gauche = { center.x - 75, center.y};
-        Vector2 droite = { center.x + 75, center.y};
-
         BeginDrawing();
-        ClearBackground(customColor);
-        DrawCircleV(gauche, 100, BLUE);
-        DrawCircleV(center, 100, WHITE);
-        DrawCircleV(droite, 100, RED);
+        ClearBackground(RAYWHITE);
+        game.Draw();
+        myButton.Draw();
         EndDrawing();
     }
 
-    // Close the window
     CloseWindow();
     return 0;
 }
