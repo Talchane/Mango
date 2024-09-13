@@ -1,5 +1,5 @@
-#ifndef BALL_HPP
-#define BALL_HPP
+#ifndef MANGO_BALL_HPP
+#define MANGO_BALL_HPP
 
 #include "raylib.h"
 #include "cmath"

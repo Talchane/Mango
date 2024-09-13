@@ -1,19 +1,33 @@
 #include "Ennemy.hpp"
 
-// Constructeur
+CollisionCircle::CollisionCircle()
+{}
+
+CollisionCircle::CollisionCircle(const Vector2 &_pos_, const float _rad_) : position(_pos_), radius(_rad_)
+{}
+
+void CollisionCircle::Draw() const
+{
+    DrawCircleV(position, radius, (Color){255, 50, 50, 150}); // Dessiner le cercle de collision
+}
+
+
 Ennemy::Ennemy()
 {
-    // Initialisation si nécessaire
+
 }
 
-// Méthode actualize
-void Ennemy::actualize(const float dt)
+void Ennemy::placementAleatoire()
 {
-    // Implémentez la logique spécifique à l'ennemi ici ou laissez-le vide si c'est une classe de base
-}
-
-// Méthode Draw
-void Ennemy::Draw() const
-{
-    // Implémentez la logique pour dessiner l'ennemi ici
+    if (rand() % 2 == 0)    // Haut Bas
+    {
+        position.x = rand() % GetScreenWidth();
+        position.y = rand() % 2 * GetScreenHeight();
+    }
+    else    // Gauche Droite
+    {
+        position.x = rand() % 2 * GetScreenWidth();
+        position.y = rand() % GetScreenHeight();
+    }
+    colCircle.position = position;
 }

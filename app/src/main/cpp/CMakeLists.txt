@@ -25,14 +25,18 @@ file(GLOB_RECURSE CPP_SOURCES "${CMAKE_SOURCE_DIR}/*.cpp")
 list(FILTER C_SOURCES EXCLUDE REGEX "${CMAKE_SOURCE_DIR}/deps/.*")
 list(FILTER CPP_SOURCES EXCLUDE REGEX "${CMAKE_SOURCE_DIR}/deps/.*")
 
-# Add headers directory for android_native_app_glue.c
+# Add headers directory for android_native_app_glue.cc
 include_directories(${ANDROID_NDK}/sources/android/native_app_glue/)
 
 # Add android_native_app_glue.c to the C source files
 list(APPEND C_SOURCES ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 
+# Include additional source files from the 'Ennemies/Ether' directory
+file(GLOB_RECURSE ETHER_SOURCES "${CMAKE_SOURCE_DIR}/Ennemies/Ether/*.cpp")
+file(GLOB_RECURSE ETHER_HEADERS "${CMAKE_SOURCE_DIR}/Ennemies/Ether/*.hpp")
+
 # Combine C and C++ source files into a single list
-set(SOURCES ${C_SOURCES} ${CPP_SOURCES})
+set(SOURCES ${C_SOURCES} ${CPP_SOURCES} ${ETHER_SOURCES})
 
 # Create a shared library with the combined source files (both C and C++)
 add_library(${APP_LIB_NAME} SHARED ${SOURCES})
@@ -53,6 +57,9 @@ endif()
 # Include raylib and raymob header files
 target_include_directories(${APP_LIB_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/deps/raylib")
 target_include_directories(${APP_LIB_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/deps/raymob")
+
+# Include additional headers from the 'Ennemies/Ether' directory
+target_include_directories(${APP_LIB_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/Ennemies/Ether")
 
 # Link required libraries to the native application
 target_link_libraries(${APP_LIB_NAME} raylib raymoblib)

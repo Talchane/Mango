@@ -1,5 +1,5 @@
-#ifndef BOUTON_HPP
-#define BOUTON_HPP
+#ifndef MANGO_BOUTON_HPP
+#define MANGO_BOUTON_HPP
 
 #include "raylib.h"
 

@@ -1,7 +1,7 @@
 #include "Personnage.hpp"
 
 // Constructeur
-Personnage::Personnage() : rotation(0)
+Personnage::Personnage(const Vector2 ScreenDims) : rotation(0), position({ScreenDims.x / 2, ScreenDims.y / 2})
 {
     // Initialisez ici si nécessaire
 }
@@ -12,7 +12,7 @@ void Personnage::Draw()
     for (int i = 0; i < balles.size(); ++i)
         balles[i]->Draw();
 
-    DrawCircle(GetScreenWidth() / 2, GetScreenHeight() / 2, 100, RED);
+    DrawCircle(position.x, position.y, 100, RED);
 }
 
 // Méthode actualize
@@ -21,13 +21,17 @@ void Personnage::actualize(const float dt)
     // ---------- Check actions -------------
 
     // --- Check tir ---
-    int touchCount = GetTouchPointCount();
-    if (touchCount > 0)
+    if (clockTir.getElapsedTime() > 0.1f)
     {
-        Vector2 touchPosition { GetTouchPosition(0) };
+        int touchCount = GetTouchPointCount();
+        if (touchCount > 0)
+        {
+            Vector2 touchPosition{GetTouchPosition(0)};
 
-        rotation = atan2(touchPosition.x - position.x, touchPosition.y - position.y);
-        balles.push_back(new Ball(position, rotation)); // On crée une nouvelle balle
+            rotation = atan2(touchPosition.x - position.x, touchPosition.y - position.y);
+            balles.push_back(new Ball(position, rotation)); // On crée une nouvelle balle
+            clockTir.restart();
+        }
     }
 
     // Check changement d'arme / de balle

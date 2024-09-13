@@ -3,6 +3,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -11,11 +12,13 @@ using namespace std;
 #include "Ball.hpp"
 #include "Personnage.hpp"
 #include "Ennemy.hpp"
+#include "Lecteur_niveau.hpp"
 #include "Game.hpp"
 
 
 int main()
 {
+    srand(time(NULL));
 
     InitWindow(0, 0, "Mango");
     SetTargetFPS(144);
@@ -28,7 +31,7 @@ int main()
     while (!WindowShouldClose())
     {
         double dt { clock.restart() };
-        game.actualize(2);
+        game.actualize(dt);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
