@@ -1,3 +1,9 @@
 s2:
 x10:
 Ether_black
+s3:
+x5:
+Ether_black
+s10:
+x100:
+Ether_black

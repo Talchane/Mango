@@ -11,6 +11,7 @@
 #include "../../Personnage.hpp"
 #include "Ether_type.hpp"
 
+
 class EtherBlack :public EtherType
 {
 public:

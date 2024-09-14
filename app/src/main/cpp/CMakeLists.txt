@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Set the project name based on the name given on the gradle.properties
 project("${APP_LIB_NAME}")
 
-# Include raylib and raymob as subdirectories
+# Include raylib and raymob as subdirectorie
 add_subdirectory(${CMAKE_SOURCE_DIR}/deps/raylib)
 add_subdirectory(${CMAKE_SOURCE_DIR}/deps/raymob)
 
@@ -25,7 +25,7 @@ file(GLOB_RECURSE CPP_SOURCES "${CMAKE_SOURCE_DIR}/*.cpp")
 list(FILTER C_SOURCES EXCLUDE REGEX "${CMAKE_SOURCE_DIR}/deps/.*")
 list(FILTER CPP_SOURCES EXCLUDE REGEX "${CMAKE_SOURCE_DIR}/deps/.*")
 
-# Add headers directory for android_native_app_glue.cc
+# Add headers directory for android_native_app_glue.c
 include_directories(${ANDROID_NDK}/sources/android/native_app_glue/)
 
 # Add android_native_app_glue.c to the C source files

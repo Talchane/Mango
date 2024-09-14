@@ -2,10 +2,9 @@
 
 Game::Game(Vector2 const& ScreenDims) : inGame(false),
                                         player(ScreenDims),
-                                        startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, "Start"),
-                                        indexSpawn(0)
+                                        startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, "Start")
 {
-    // Vous pouvez initialiser ici si nécessaire
+    textures.loadAll();
 }
 
 void Game::actualize(const float dt)
@@ -23,7 +22,7 @@ void Game::actualize(const float dt)
     {
         if (startButton.isPressed())
         {
-            levelData = readLevel(1);
+            level.loadLvl(1);
             inGame = true;
             clockLevel.restart();
         }
@@ -34,7 +33,7 @@ void Game::Draw()
 {
     if (inGame)
     {
-        player.Draw();
+        player.Draw(true);
 
         for (int i = 0; i < ennemies.size(); ++i)
             ennemies[i]->Draw(true);
@@ -51,14 +50,32 @@ void Game::checkSpawn()
      * get<0> est le float de l'horaire de spawn
      * get<1> est l'int de la quantité à spawn
      * get<2> est la string du type de mob
-     *//*
-    if (clockLevel.getElapsedTime() > get<0>(levelData[indexSpawn]))
-    {
-        for (int i = 0; i < get<1>(levelData[indexSpawn]); ++i)
-            ennemies.push_back(new EtherBlack(texEtherBlack));
+     */
+    if (level.ended())
+        return;
 
-        indexSpawn++;
-    }*/
+    if (clockLevel.getElapsedTime() > level.getNextTimeCode())
+    {
+        for (int i = 0; i < level.getNextQuantity(); ++i)
+        {
+            string newType(level.getNextType());
+
+            if (newType == "Ether_black")
+                ennemies.push_back(new EtherBlack(textures.texEtherBlack));
+            else
+            {
+                LOGE("Error Game.cpp : unknown mob level : %d, type : %s", level.numlvl, newType.c_str());
+                exit(1);
+            }
+        }
+        level.nextStep();
+
+        // ----- Check fin niveau ---------
+        if (level.ended())
+        {
+            //  --------- Niveau vient de se terminer ----------
+        }
+    }
 }
 
 void Game::checkCollisionsTirs()

@@ -5,20 +5,11 @@
 #include "raylib.h"
 #include "Clock.hpp"
 #include "Personnage.hpp"
+#include "Texture_loader.hpp"
+#include "Collision_circle.hpp"
 #include <string>
 #include <vector>
 
-using namespace std;
-
-struct CollisionCircle
-{
-    CollisionCircle();
-    CollisionCircle(const Vector2& _pos_, const float _rad_);
-    Vector2 position;
-    float radius;
-
-    void Draw() const;
-};
 
 class Ennemy
 {
@@ -40,9 +31,11 @@ protected:
     float life;
     float speed;
     float damages;
+    float rotation;
 
     CollisionCircle colCircle;
     Texture2D tex;
+    float scale;
     Clock clock;
 
 };

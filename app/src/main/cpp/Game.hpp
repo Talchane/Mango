@@ -7,7 +7,9 @@
 #include "Personnage.hpp"
 #include "Ennemy.hpp"
 #include "Bouton.hpp"
+#include "Niveau.hpp"
 #include "Lecteur_niveau.hpp"
+#include "Texture_loader.hpp"
 #include "Ennemies/Ether/Ether_black.hpp"
 
 class Game {
@@ -26,11 +28,10 @@ private:
 
     Personnage player;
     vector<Ennemy*> ennemies;
-    vector<tuple<float, int, string>> levelData;
+    Niveau level;
     Clock clockLevel;
-    int indexSpawn;     // Index pour savoir quel est le prochain mob à spawn
 
-    Texture2D texEtherBlack;
+    TextureLoader textures;
 };
 
 #endif // GAME_HPP

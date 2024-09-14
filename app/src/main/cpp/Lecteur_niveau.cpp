@@ -74,6 +74,12 @@ vector<tuple<float, int, string>> readLevel(int numLevel)
         quantite = getIntString(str, 1);
 
         getline(fileStream, str);  // Ligne suivante
+
+        // Traitement de la string pour ne pas qu'elle garde de charactère indésirable
+        str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
+        str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+        str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
+
         valeurs.emplace_back(timeValue, quantite, str);  // Ajouter les valeurs au vector
     }
 

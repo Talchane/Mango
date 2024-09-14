@@ -3,16 +3,18 @@
 // Constructeur
 Personnage::Personnage(const Vector2 ScreenDims) : rotation(0), position({ScreenDims.x / 2, ScreenDims.y / 2})
 {
-    // Initialisez ici si nécessaire
+    colCircle.position = position;
+    colCircle.radius = 100;
 }
 
 // Méthode Draw
-void Personnage::Draw()
+void Personnage::Draw(bool debug) const
 {
     for (int i = 0; i < balles.size(); ++i)
-        balles[i]->Draw();
+        balles[i]->Draw(debug);
 
-    DrawCircle(position.x, position.y, 100, RED);
+    if (debug)
+        colCircle.Draw();
 }
 
 // Méthode actualize

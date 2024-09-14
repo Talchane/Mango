@@ -17,14 +17,14 @@ void EtherBlack::actualize(Personnage &player, const float dt)
 {
     //------------- Déplacement ---------
 
-    Vector2 diff = player.position;
-    diff.x -= position.x;
-    diff.y -= position.y;
+    Vector2 dir = player.position;
+    dir.x -= position.x;
+    dir.y -= position.y;
 
-    diff = rendreUnitaire(diff);
+    dir = rendreUnitaire(dir);
 
-    position.x += diff.x * speed;
-    position.y += diff.y * speed;
+    position.x += dir.x * speed * dt;
+    position.y += dir.y * speed * dt;
 
     colCircle.position = position;
 
@@ -33,6 +33,11 @@ void EtherBlack::actualize(Personnage &player, const float dt)
 
 void EtherBlack::Draw(bool debug) const
 {
-    DrawTexture(tex, position.x, position.y, WHITE);
-    colCircle.Draw();
+    Vector2 drawPosition;
+    drawPosition.x = position.x - (TextureLoader::getMobTextureDims().x * scale) / 2;
+    drawPosition.y = position.y - (TextureLoader::getMobTextureDims().y * scale) / 2;
+
+    DrawTextureEx(tex, drawPosition, rotation, scale, WHITE);
+    if (debug)
+        colCircle.Draw();
 }
