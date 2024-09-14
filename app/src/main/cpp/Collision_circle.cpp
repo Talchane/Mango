@@ -14,3 +14,8 @@ void CollisionCircle::Draw() const
 {
     DrawCircleV(position, radius, (Color){255, 50, 50, 150}); // Dessiner le cercle de collision
 }
+
+bool collisionCercleCercle(const CollisionCircle& C1, const CollisionCircle& C2)
+{
+    return (distance(C2.position, C1.position) <= (C1.radius + C2.radius));
+}

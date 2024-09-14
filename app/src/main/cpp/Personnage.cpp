@@ -30,7 +30,7 @@ void Personnage::actualize(const float dt)
         {
             Vector2 touchPosition{GetTouchPosition(0)};
 
-            rotation = atan2(touchPosition.x - position.x, touchPosition.y - position.y);
+            rotation = M_PI / 2.f - atan2(touchPosition.x - position.x, touchPosition.y - position.y);
             balles.push_back(new Ball(position, rotation)); // On crée une nouvelle balle
             clockTir.restart();
         }

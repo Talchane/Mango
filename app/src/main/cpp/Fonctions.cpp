@@ -47,3 +47,8 @@ void traiterString(string &str)
     str.erase(remove(str.begin(), str.end(), '\n'), str.end());
     str.erase(remove(str.begin(), str.end(), '\r'), str.end());
 }
+
+float distance(const Vector2 A, const Vector2 B)
+{
+    return sqrt(pow(B.x - A.x, 2) + pow(B.y - A.y, 2));
+}

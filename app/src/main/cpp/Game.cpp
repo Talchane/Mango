@@ -85,5 +85,32 @@ void Game::checkSpawn()
 
 void Game::checkCollisionsTirs()
 {
-    // Implémentez la logique de détection de collisions ici
+    for (int i = 0; i < player.balles.size(); ++i)  // Utiliser .size() pour la lisibilité
+    {
+        bool balleSupprimee = false;  // Marqueur pour savoir si la balle a été supprimée
+        for (int j = 0; j < ennemies.size(); ++j)
+        {
+            if (collisionCercleCercle(player.balles[i]->colCircle, ennemies[j]->colCircle))
+            {
+                // Si l'ennemi est touché et meurt
+                if (ennemies[j]->blesser(player.balles[i]) == true)
+                    removeElement(ennemies, j);   // Supprime l'ennemi
+
+                // Supprimer la balle
+                removeElement(player.balles, i);  // Supprime la balle à l'index i
+                balleSupprimee = true;            // Marquer que la balle est supprimée
+                --i;                              // Ajuster l'indice i pour ne pas sauter d'éléments
+
+                // Sortir de la boucle car on ne veut pas continuer à vérifier d'autres ennemis
+                break;
+            }
+        }
+
+        // Si la balle a été supprimée, il faut arrêter l'itération sur les balles
+        if (balleSupprimee)
+        {
+            break;
+        }
+    }
 }
+

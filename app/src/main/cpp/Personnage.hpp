@@ -16,9 +16,9 @@ public:
     void actualize(const float dt);
 
     Vector2 position;
+    vector<Ball*> balles;
 private:
     CollisionCircle colCircle;
-    std::vector<Ball*> balles;
     float rotation;
     Clock clockTir;
 };

@@ -13,6 +13,17 @@ Ennemy::Ennemy(const Stats& _stats_) : scale(0.2f), rotation(0)
     colCircle.radius = 30;
 }
 
+bool Ennemy::blesser(Ball *balle)
+{
+    life -= balle -> damages;
+    if (life < 0)
+    {
+        // MORT
+        return true;
+    }
+    return false;
+}
+
 void Ennemy::placementAleatoire()
 {
     if (rand() % 2 == 0)    // Haut Bas

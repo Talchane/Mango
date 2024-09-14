@@ -15,6 +15,7 @@ public:
     Vector2 position;
     float rotation;
     float speed;
+    float damages;
     CollisionCircle colCircle;
 };
 

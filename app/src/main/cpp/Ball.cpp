@@ -1,6 +1,6 @@
 #include "Ball.hpp"
 
-Ball::Ball(Vector2 _pos_, float _rot_) : position(_pos_), rotation(_rot_), speed(1000)
+Ball::Ball(Vector2 _pos_, float _rot_) : position(_pos_), rotation(_rot_), damages(20), speed(1000)
 {
     colCircle.position = position;
     colCircle.radius = 10;

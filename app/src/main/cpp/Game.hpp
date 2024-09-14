@@ -11,6 +11,8 @@
 #include "Lecteur_niveau.hpp"
 #include "Texture_loader.hpp"
 #include "Stats.hpp"
+#include "Collision_circle.hpp"
+#include "Fonctions.hpp"
 #include "Ennemies/Ether/Ether_black.hpp"
 #include "Ennemies/Ether/Ether_blue.hpp"
 #include "Ennemies/Ether/Ether_gold.hpp"

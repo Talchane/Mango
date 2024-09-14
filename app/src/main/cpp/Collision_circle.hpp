@@ -6,6 +6,7 @@
 #define MANGO_COLLISION_CIRCLE_HPP
 
 #include "raylib.h"
+#include "Fonctions.hpp"
 
 using namespace std;
 
@@ -18,6 +19,8 @@ struct CollisionCircle
 
     void Draw() const;
 };
+
+bool collisionCercleCercle(const CollisionCircle& C1, const CollisionCircle& C2);
 
 
 #endif //MANGO_COLLISION_CIRCLE_HPP
