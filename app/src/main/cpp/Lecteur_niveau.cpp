@@ -10,29 +10,6 @@
  */
 #include "Lecteur_niveau.hpp"
 
-float getFloatString(string str, int index)
-{
-    string tmp = "";
-    while (isdigit(str[index]) || str[index] == '.')
-    {
-        tmp += str[index];
-        index++;
-    }
-    return stof(tmp);
-}
-
-
-int getIntString(string str, int index)
-{
-    string tmp = "";
-    while (isdigit(str[index]))
-    {
-        tmp += str[index];
-        index++;
-    }
-    return stoi(tmp);
-}
-
 vector<tuple<float, int, string>> readLevel(int numLevel)
 {
     // ------------ Chargement fichier avec Raylib ------------
@@ -76,9 +53,7 @@ vector<tuple<float, int, string>> readLevel(int numLevel)
         getline(fileStream, str);  // Ligne suivante
 
         // Traitement de la string pour ne pas qu'elle garde de charactère indésirable
-        str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
-        str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
-        str.erase(std::remove(str.begin(), str.end(), '\r'), str.end());
+        traiterString(str);
 
         valeurs.emplace_back(timeValue, quantite, str);  // Ajouter les valeurs au vector
     }

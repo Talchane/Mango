@@ -10,15 +10,11 @@
 #include <utility>
 #include <tuple>
 #include <iostream>
+#include "Fonctions.hpp"
 #include <android/log.h>
-
-#define LOG_TAG "MY_APP_TAG"
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 using namespace std;
 
-float getFloatString(string str, int index);
-int getIntString(string str, int index);
 vector<tuple<float, int, string>> readLevel(int numLevel);
 
 

@@ -10,7 +10,10 @@
 #include "Niveau.hpp"
 #include "Lecteur_niveau.hpp"
 #include "Texture_loader.hpp"
+#include "Stats.hpp"
 #include "Ennemies/Ether/Ether_black.hpp"
+#include "Ennemies/Ether/Ether_blue.hpp"
+#include "Ennemies/Ether/Ether_gold.hpp"
 
 class Game {
 public:
@@ -32,6 +35,7 @@ private:
     Clock clockLevel;
 
     TextureLoader textures;
+    map<string, Stats> statsMobs;
 };
 
 #endif // GAME_HPP

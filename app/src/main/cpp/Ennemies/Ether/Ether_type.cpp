@@ -4,9 +4,7 @@
 
 #include "Ether_type.hpp"
 
-EtherType::EtherType()
+EtherType::EtherType(const Stats& _stats_) : Ennemy(_stats_)
 {
-    speed = 100;
-    life = 200;
-    damages = 50;
+
 }

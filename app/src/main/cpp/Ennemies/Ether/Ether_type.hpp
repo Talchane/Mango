@@ -11,7 +11,7 @@
 class EtherType :public Ennemy
 {
 public:
-    EtherType();
+    EtherType(const Stats& _stats_);
 
     virtual void actualize(Personnage &player, const float dt) = 0;
     virtual void Draw(bool debug) const = 0;

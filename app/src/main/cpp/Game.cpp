@@ -5,6 +5,7 @@ Game::Game(Vector2 const& ScreenDims) : inGame(false),
                                         startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, "Start")
 {
     textures.loadAll();
+    statsMobs = LoadAllMobStats();
 }
 
 void Game::actualize(const float dt)
@@ -36,7 +37,7 @@ void Game::Draw()
         player.Draw(true);
 
         for (int i = 0; i < ennemies.size(); ++i)
-            ennemies[i]->Draw(true);
+            ennemies[i]->Draw(false);
     }
     else
     {
@@ -61,7 +62,11 @@ void Game::checkSpawn()
             string newType(level.getNextType());
 
             if (newType == "Ether_black")
-                ennemies.push_back(new EtherBlack(textures.texEtherBlack));
+                ennemies.push_back(new EtherBlack(textures.texEtherBlack, statsMobs[newType]));
+            else if (newType == "Ether_blue")
+                ennemies.push_back(new EtherBlue(textures.texEtherBlue, statsMobs[newType]));
+            else if (newType == "Ether_gold")
+                ennemies.push_back(new EtherGold(textures.texEtherGold, statsMobs[newType]));
             else
             {
                 LOGE("Error Game.cpp : unknown mob level : %d, type : %s", level.numlvl, newType.c_str());

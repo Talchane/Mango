@@ -1,0 +1,5 @@
+Fichier contenant les stats de tous les mobs. (Type, Vie, Vitesse, Vitesse d'attaque (coups / seconde), dégats, résistances (3 vals)
+----------------------------------------------------------------------------------------------------------
+Ether_black,        100,    200,    1,  10, 0,0,0
+Ether_blue,         100,    200,    1,  10, 0,0,0
+Ether_gold,         100,    200,    1,  10, 0,0,0

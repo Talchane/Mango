@@ -2,9 +2,9 @@
 // Created by benfe on 14/09/2024.
 //
 
-#include "Ether_black.hpp"
+#include "Ether_gold.hpp"
 
-EtherBlack::EtherBlack(Texture2D &_tex_, const Stats& _stats_) : EtherType(_stats_)
+EtherGold::EtherGold(Texture2D &_tex_, Stats _stats_) : EtherType(_stats_)
 {
     tex = _tex_;
 
@@ -12,7 +12,7 @@ EtherBlack::EtherBlack(Texture2D &_tex_, const Stats& _stats_) : EtherType(_stat
     colCircle.radius = 20;
 }
 
-void EtherBlack::actualize(Personnage &player, const float dt)
+void EtherGold::actualize(Personnage &player, const float dt)
 {
     //------------- Déplacement ---------
 
@@ -30,7 +30,7 @@ void EtherBlack::actualize(Personnage &player, const float dt)
     // ------------- Attaque -----------
 }
 
-void EtherBlack::Draw(bool debug) const
+void EtherGold::Draw(bool debug) const
 {
     Vector2 drawPosition;
     drawPosition.x = position.x - (TextureLoader::getMobTextureDims().x * scale) / 2;

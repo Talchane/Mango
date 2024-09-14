@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Set the project name based on the name given on the gradle.properties
 project("${APP_LIB_NAME}")
 
-# Include raylib and raymob as subdirectorie
+# Include raylib and raymob as subdirectories
 add_subdirectory(${CMAKE_SOURCE_DIR}/deps/raylib)
 add_subdirectory(${CMAKE_SOURCE_DIR}/deps/raymob)
 
