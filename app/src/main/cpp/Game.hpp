@@ -26,6 +26,8 @@ public:
 private:
     Bouton startButton;
     Bouton colorButtons[3];
+
+    void Start();
     void checkSpawn();	// Vérifie l'apparition de nouveaux ennemis
     void checkCollisionsTirs();	// Check les collisions entre les tirs et les ennemis
 
@@ -33,6 +35,8 @@ private:
     vector<Ennemy> ennemies;
     Niveau level;
     Clock clockLevel;
+    Clock clockInfini;
+    int numLevel;
 
     TextureLoader textures;
     map<string, Color> correspondances;

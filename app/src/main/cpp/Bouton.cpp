@@ -8,7 +8,7 @@ Bouton::Bouton()
 Bouton::Bouton(float x, float y, float width, float height, Color _color_, const char* text)
     : buttonRect{ x - width / 2, y - height / 2, width, height },
       buttonColor(_color_),
-      buttonTextColor(WHITE),
+      buttonTextColor(BLACK),
       buttonText(text)
 {
 }
@@ -17,9 +17,9 @@ void Bouton::Draw(bool fill) const
 {
     //DrawRectangleRec(buttonRect, buttonColor);
     if (fill)
-        DrawRectangleRounded(buttonRect, 0.3f, 16, buttonColor);
+        DrawRectangleRounded(buttonRect, 0.5f, 16, buttonColor);
     else
-        DrawRectangleRoundedLines(buttonRect, 0.3f, 16, 4, buttonColor);
+        DrawRectangleRoundedLines(buttonRect, 0.5f, 16, 10, buttonColor);
 
 
     int textWidth = MeasureText(buttonText, 30);
@@ -33,9 +33,12 @@ void Bouton::Draw(bool fill) const
 
     DrawText(buttonText, textPosition.x, textPosition.y, 30, buttonTextColor);
 }
-
-bool Bouton::isPressed() const
+// La marge correspond à un décalage de la zone de collision afin de rendre plus facilement atteignable le bouton
+bool Bouton::isPressed(int marge) const
 {
+    Rectangle collisionRect{buttonRect.x - marge, buttonRect.y - marge, buttonRect.width + marge, buttonRect.height + marge};
+
+
     Vector2 touchPosition = { 0, 0 };
     bool isTouching = false;
     int touchCount = GetTouchPointCount(); // Obtenez le nombre de points de contact
@@ -43,7 +46,7 @@ bool Bouton::isPressed() const
     for (int i = 0; i < touchCount; i++)
     {
         touchPosition = GetTouchPosition(i);
-        if (CheckCollisionPointRec(touchPosition, buttonRect))
+        if (CheckCollisionPointRec(touchPosition, collisionRect))
             return true;
     }
     return false; // Le bouton n'est pas pressé

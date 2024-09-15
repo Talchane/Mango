@@ -14,7 +14,7 @@ public:
     void Draw(bool fill) const;
 
     // Méthode pour vérifier si le bouton a été pressé
-    bool isPressed() const;
+    bool isPressed(int marge = 0) const;
 
     Color buttonColor;    // Couleur du bouton
     Color buttonTextColor;  // Couleur du texte du bouton

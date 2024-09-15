@@ -7,7 +7,7 @@ Game::Game(Vector2 const& ScreenDims) : inGame(false),
     textures.loadAll();
 
     for (int i = 0; i < size(colorButtons); ++i)
-        colorButtons[i] = Bouton(ScreenDims.x / 2 - 150 + i * 150, ScreenDims.y - 150, 100, 100, RED, "");
+        colorButtons[i] = Bouton(ScreenDims.x / 2 - 200 + i * 200, ScreenDims.y - 200, 150, 150, RED, "");
 
     colorButtons[0].buttonColor = {255, 0, 0, 255};
     colorButtons[1].buttonColor = {0, 255, 0, 255};
@@ -38,7 +38,7 @@ void Game::actualize(const float dt)
         }
         for (int i = 0; i < size(colorButtons); ++i)
         {
-            if (colorButtons[i].isPressed())
+            if (colorButtons[i].isPressed(10))
                 player.setColor(colorButtons[i].buttonColor);
         }
     }
@@ -46,9 +46,8 @@ void Game::actualize(const float dt)
     {
         if (startButton.isPressed())
         {
-            level.loadLvl(1);
-            inGame = true;
-            clockLevel.restart();
+            numLevel = 0;
+            Start();
         }
     }
 }
@@ -70,30 +69,67 @@ void Game::Draw()
     }
 }
 
+// Si numLevel == 0 alors on est en mode infini
+void Game::Start()
+{
+    // Mode infini
+    if (numLevel == 0)
+    {
+
+    }
+    // On charge un niveau
+    else
+    {
+        level.loadLvl(1);
+    }
+
+    inGame = true;
+    clockLevel.restart();
+    clockInfini.restart();
+}
+
+
 void Game::checkSpawn()
 {
-    /*
-     * get<0> est le float de l'horaire de spawn
-     * get<1> est l'int de la quantité à spawn
-     * get<2> est la string du type de mob
-     */
-    if (level.ended())
-        return;
-
-    if (clockLevel.getElapsedTime() > level.getNextTimeCode())
+    if (numLevel == 0)  // Mode infini
     {
-        for (int i = 0; i < level.getNextQuantity(); ++i)
+        if (clockInfini.getElapsedTime() > 2.f)
         {
-            string newType(level.getNextType());
+            clockInfini.restart();
 
-            ennemies.emplace_back(correspondances[newType], textures.texAnneau80);
+            // Générer un nombre aléatoire d'ennemis
+            for (int i = 0; i < rand() % 3 + 1; ++i)
+            {
+                // Générer une couleur léatoire pour chaque ennemi
+                int index = rand() % size(correspondances);
+                auto it(correspondances.begin());
+                advance(it, index);
+
+                ennemies.emplace_back(correspondances[it -> first], textures.texAnneau80);
+            }
         }
-        level.nextStep();
-
-        // ----- Check fin niveau ---------
+    }
+    // Dans un niveau
+    else
+    {
         if (level.ended())
+            return;
+
+        if (clockLevel.getElapsedTime() > level.getNextTimeCode())
         {
-            //  --------- Niveau vient de se terminer ----------
+            for (int i = 0; i < level.getNextQuantity(); ++i)
+            {
+                string newType(level.getNextType());
+
+                ennemies.emplace_back(correspondances[newType], textures.texAnneau80);
+            }
+            level.nextStep();
+
+            // ----- Check fin niveau ---------
+            if (level.ended())
+            {
+                //  --------- Niveau vient de se terminer ----------
+            }
         }
     }
 }

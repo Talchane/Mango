@@ -1,9 +1,9 @@
 #include "Ennemy.hpp"
 
 
-Ennemy::Ennemy(const Color& _color_, const Texture2D& _tex_) : color(_color_), life(1), speed(100), texture(_tex_), scale(0.1f)
+Ennemy::Ennemy(const Color& _color_, const Texture2D& _tex_) : color(_color_), life(1), speed(100), texture(_tex_), scale(0.2f)
 {
-    colCircle.radius = 25;
+    colCircle.radius = 50;
     placementAleatoire();
 }
 
