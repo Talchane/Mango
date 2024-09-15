@@ -1,9 +1,9 @@
 s2:
 x10:
-Ether_blue
+Red
 s10:
 x10:
-Ether_black
+Green
 s20:
 x12:
-Ether_gold
+Blue

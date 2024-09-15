@@ -18,6 +18,7 @@ using namespace std;
 
 int main()
 {
+
     srand(time(NULL));
 
     InitWindow(0, 0, "Mango");
@@ -34,8 +35,7 @@ int main()
         game.actualize(dt);
 
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-
+        ClearBackground((Color){50, 50, 50});
         game.Draw();
         EndDrawing();
     }

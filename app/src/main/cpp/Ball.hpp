@@ -3,20 +3,20 @@
 
 #include "raylib.h"
 #include "cmath"
-#include "Collision_circle.hpp"
+#include "Circle.hpp"
 
 class Ball
 {
 public:
-    Ball(Vector2 _pos_, float _rot_);
+    Ball(Vector2 _pos_, float _rot_, Color _color_);
     void actualize(const float dt);
-    void Draw(bool debug) const;
+    void Draw() const;
 
     Vector2 position;
+    Color color;
     float rotation;
     float speed;
-    float damages;
-    CollisionCircle colCircle;
+    Circle colCircle;
 };
 
 #endif // BALL_HPP

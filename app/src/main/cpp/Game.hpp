@@ -11,11 +11,8 @@
 #include "Lecteur_niveau.hpp"
 #include "Texture_loader.hpp"
 #include "Stats.hpp"
-#include "Collision_circle.hpp"
+#include "Circle.hpp"
 #include "Fonctions.hpp"
-#include "Ennemies/Ether/Ether_black.hpp"
-#include "Ennemies/Ether/Ether_blue.hpp"
-#include "Ennemies/Ether/Ether_gold.hpp"
 
 class Game {
 public:
@@ -28,16 +25,17 @@ public:
 
 private:
     Bouton startButton;
+    Bouton colorButtons[3];
     void checkSpawn();	// Vérifie l'apparition de nouveaux ennemis
     void checkCollisionsTirs();	// Check les collisions entre les tirs et les ennemis
 
     Personnage player;
-    vector<Ennemy*> ennemies;
+    vector<Ennemy> ennemies;
     Niveau level;
     Clock clockLevel;
 
     TextureLoader textures;
-    map<string, Stats> statsMobs;
+    map<string, Color> correspondances;
 };
 
 #endif // GAME_HPP

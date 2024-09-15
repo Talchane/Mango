@@ -1,16 +1,26 @@
 #include "Bouton.hpp"
 
-Bouton::Bouton(float x, float y, float width, float height, const char* text)
+Bouton::Bouton()
+{
+
+}
+
+Bouton::Bouton(float x, float y, float width, float height, Color _color_, const char* text)
     : buttonRect{ x - width / 2, y - height / 2, width, height },
-      buttonColor(BLUE),
+      buttonColor(_color_),
       buttonTextColor(WHITE),
       buttonText(text)
 {
 }
 
-void Bouton::Draw() const
+void Bouton::Draw(bool fill) const
 {
-    DrawRectangleRec(buttonRect, buttonColor);
+    //DrawRectangleRec(buttonRect, buttonColor);
+    if (fill)
+        DrawRectangleRounded(buttonRect, 0.3f, 16, buttonColor);
+    else
+        DrawRectangleRoundedLines(buttonRect, 0.3f, 16, 4, buttonColor);
+
 
     int textWidth = MeasureText(buttonText, 30);
     int textHeight = 30; // Hauteur du texte, à ajuster si nécessaire

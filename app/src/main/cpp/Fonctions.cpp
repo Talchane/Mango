@@ -52,3 +52,10 @@ float distance(const Vector2 A, const Vector2 B)
 {
     return sqrt(pow(B.x - A.x, 2) + pow(B.y - A.y, 2));
 }
+
+bool operator==(const Color& colA, const Color& colB)
+{
+    return (colA.r == colB.r &&
+            colA.g == colB.g &&
+            colA.b == colB.b);
+}

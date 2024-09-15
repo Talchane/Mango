@@ -6,7 +6,7 @@
 #include "Clock.hpp"
 #include "Personnage.hpp"
 #include "Texture_loader.hpp"
-#include "Collision_circle.hpp"
+#include "Circle.hpp"
 #include "Stats.hpp"
 #include <string>
 #include <vector>
@@ -15,37 +15,29 @@
 class Ennemy
 {
 public:
-    Ennemy(const Stats& _stats_);
+    Ennemy(const Color& _color_, const Texture2D& _tex_);
 
     // Méthode virtuelle pour permettre l'héritage et la surcharge
-    virtual void actualize(Personnage &player, const float dt) = 0;
+    bool actualize(Personnage &player, const float dt);
 
     // Méthode qui inflige des dégats à l'ennemi. Renvoie true si l'ennemi est mort de ses dégats.
-    bool blesser(Ball *balle);
+    bool toucher(const Ball& balle);
 
     // Méthode pour dessiner l'ennemi, marquée comme const car elle ne modifie pas l'état de l'objet
-    virtual void Draw(bool debug) const = 0;
+    void Draw() const;
 
-    CollisionCircle colCircle;
+    Circle colCircle;
 
-protected:
+private:
 
     void placementAleatoire();
 
+    Color color;
     Vector2 position;
-    string type;
-    float life;
+    int life;
     float speed;
-    float speedAttack;
-    float damages;
-
-    tuple<float, float, float> resistances;
-
-    float rotation;
-    Texture2D tex;
+    Texture2D texture;
     float scale;
-    Clock clock;
-
 };
 
 #endif // ENNEMY_HPP

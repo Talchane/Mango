@@ -2,10 +2,21 @@
 
 Game::Game(Vector2 const& ScreenDims) : inGame(false),
                                         player(ScreenDims),
-                                        startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, "Start")
+                                        startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, BLUE, "Start")
 {
     textures.loadAll();
-    statsMobs = LoadAllMobStats();
+
+    for (int i = 0; i < size(colorButtons); ++i)
+        colorButtons[i] = Bouton(ScreenDims.x / 2 - 150 + i * 150, ScreenDims.y - 150, 100, 100, RED, "");
+
+    colorButtons[0].buttonColor = {255, 0, 0, 255};
+    colorButtons[1].buttonColor = {0, 255, 0, 255};
+    colorButtons[2].buttonColor = {0, 0, 255, 255};
+
+    correspondances["Red"] = (Color){255, 0, 0, 255};
+    correspondances["Green"] = (Color){0, 255, 0, 255};
+    correspondances["Blue"] = (Color){0, 0, 255, 255};
+
 }
 
 void Game::actualize(const float dt)
@@ -17,7 +28,19 @@ void Game::actualize(const float dt)
         checkCollisionsTirs();      // Check des collisions entre les balles et les ennemis
 
         for (int i = 0; i < ennemies.size(); ++i)
-            ennemies[i]->actualize(player, dt);   // Actualise les attaques et les animations des ennemis
+        {
+            // Si actualize renvoie true, alors il a touché le joueur et il faut le détruire.
+            if (ennemies[i].actualize(player, dt))   // Déplacement de l'ennemi et test collision joueur
+            {
+                removeElement(ennemies, i);
+                i--;
+            }
+        }
+        for (int i = 0; i < size(colorButtons); ++i)
+        {
+            if (colorButtons[i].isPressed())
+                player.setColor(colorButtons[i].buttonColor);
+        }
     }
     else    // On est sur le menu
     {
@@ -37,11 +60,13 @@ void Game::Draw()
         player.Draw(true);
 
         for (int i = 0; i < ennemies.size(); ++i)
-            ennemies[i]->Draw(false);
+            ennemies[i].Draw();
+        for (int i = 0; i < size(colorButtons); ++i)
+            colorButtons[i].Draw(colorButtons[i].buttonColor == player.shootColor);
     }
     else
     {
-        startButton.Draw();
+        startButton.Draw(false);
     }
 }
 
@@ -61,17 +86,7 @@ void Game::checkSpawn()
         {
             string newType(level.getNextType());
 
-            if (newType == "Ether_black")
-                ennemies.push_back(new EtherBlack(textures.texEtherBlack, statsMobs[newType]));
-            else if (newType == "Ether_blue")
-                ennemies.push_back(new EtherBlue(textures.texEtherBlue, statsMobs[newType]));
-            else if (newType == "Ether_gold")
-                ennemies.push_back(new EtherGold(textures.texEtherGold, statsMobs[newType]));
-            else
-            {
-                LOGE("Error Game.cpp : unknown mob level : %d, type : %s", level.numlvl, newType.c_str());
-                exit(1);
-            }
+            ennemies.emplace_back(correspondances[newType], textures.texAnneau80);
         }
         level.nextStep();
 
@@ -90,10 +105,10 @@ void Game::checkCollisionsTirs()
         bool balleSupprimee = false;  // Marqueur pour savoir si la balle a été supprimée
         for (int j = 0; j < ennemies.size(); ++j)
         {
-            if (collisionCercleCercle(player.balles[i]->colCircle, ennemies[j]->colCircle))
+            if (collisionCercleCercle(player.balles[i].colCircle, ennemies[j].colCircle))
             {
                 // Si l'ennemi est touché et meurt
-                if (ennemies[j]->blesser(player.balles[i]) == true)
+                if (ennemies[j].toucher(player.balles[i]) == true)
                     removeElement(ennemies, j);   // Supprime l'ennemi
 
                 // Supprimer la balle

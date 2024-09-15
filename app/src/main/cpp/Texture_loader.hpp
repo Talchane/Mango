@@ -14,6 +14,7 @@ public:
     void loadAll();
     static Vector2 getMobTextureDims();
 
+    Texture2D texAnneau80;
     Texture2D texEtherBlack;
     Texture2D texEtherBlue;
     Texture2D texEtherGold;

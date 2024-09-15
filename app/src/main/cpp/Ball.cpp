@@ -1,9 +1,10 @@
 #include "Ball.hpp"
 
-Ball::Ball(Vector2 _pos_, float _rot_) : position(_pos_), rotation(_rot_), damages(20), speed(1000)
+Ball::Ball(Vector2 _pos_, float _rot_, Color _color_) : position(_pos_), rotation(_rot_), speed(1000), color(_color_)
 {
     colCircle.position = position;
     colCircle.radius = 10;
+    colCircle.color = color;
 }
 
 void Ball::actualize(const float dt)
@@ -15,10 +16,7 @@ void Ball::actualize(const float dt)
 }
 
 // Méthode Draw
-void Ball::Draw(bool debug) const
+void Ball::Draw() const
 {
-    DrawCircle(position.x, position.y, 10, BLUE);
-    if (debug)
-        colCircle.Draw();
-
+    colCircle.Draw();
 }

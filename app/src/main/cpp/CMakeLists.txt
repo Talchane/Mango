@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.22.1)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 
-# Set the project name based on the name given on the gradle.properties
+# Set the project name based on the name given on the gradle.propertiess
 project("${APP_LIB_NAME}")
 
 # Include raylib and raymob as subdirectories
@@ -30,10 +30,6 @@ include_directories(${ANDROID_NDK}/sources/android/native_app_glue/)
 
 # Add android_native_app_glue.c to the C source files
 list(APPEND C_SOURCES ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
-
-# Include additional source files from the 'Ennemies/Ether' directory
-file(GLOB_RECURSE ETHER_SOURCES "${CMAKE_SOURCE_DIR}/Ennemies/Ether/*.cpp")
-file(GLOB_RECURSE ETHER_HEADERS "${CMAKE_SOURCE_DIR}/Ennemies/Ether/*.hpp")
 
 # Combine C and C++ source files into a single list
 set(SOURCES ${C_SOURCES} ${CPP_SOURCES} ${ETHER_SOURCES})
