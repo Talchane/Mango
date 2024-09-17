@@ -148,7 +148,7 @@ void Ingame::checkCollisionsTirs()
     // ----------- Check sortie d'écran ----------
     for (int i = 0; i < player.balles.size(); ++i)  // Utiliser .size() pour la lisibilité
     {
-        if (CheckCollisionPointRec(player.balles[i].position, (Rectangle){0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()}))
+        if (!CheckCollisionPointRec(player.balles[i].position, (Rectangle){0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()}))
             removeElement(player.balles, i);
     }
 }
