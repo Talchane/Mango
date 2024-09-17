@@ -1,6 +1,6 @@
 #include "Bouton.hpp"
 
-Bouton::Bouton()
+Bouton::Bouton() : fontSize(30)
 {
 
 }
@@ -9,7 +9,8 @@ Bouton::Bouton(float x, float y, float width, float height, Color _color_, const
     : buttonRect{ x - width / 2, y - height / 2, width, height },
       buttonColor(_color_),
       buttonTextColor(BLACK),
-      buttonText(text)
+      buttonText(text),
+      fontSize(30)
 {
 }
 
@@ -22,16 +23,15 @@ void Bouton::Draw(bool fill) const
         DrawRectangleRoundedLines(buttonRect, 0.5f, 16, 10, buttonColor);
 
 
-    int textWidth = MeasureText(buttonText, 30);
-    int textHeight = 30; // Hauteur du texte, à ajuster si nécessaire
+    int textWidth = MeasureText(buttonText.c_str(), fontSize);
 
     // Calculer la position du texte pour le centrer
     Vector2 textPosition = {
             buttonRect.x + (buttonRect.width - textWidth) / 2,
-            buttonRect.y + (buttonRect.height - textHeight) / 2
+            buttonRect.y + (buttonRect.height - fontSize) / 2
     };
 
-    DrawText(buttonText, textPosition.x, textPosition.y, 30, buttonTextColor);
+    DrawText(buttonText.c_str(), textPosition.x, textPosition.y, fontSize, buttonTextColor);
 }
 // La marge correspond à un décalage de la zone de collision afin de rendre plus facilement atteignable le bouton
 bool Bouton::isPressed(int marge) const

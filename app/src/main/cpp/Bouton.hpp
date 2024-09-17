@@ -2,6 +2,9 @@
 #define MANGO_BOUTON_HPP
 
 #include "raylib.h"
+#include <string>
+
+using namespace std;
 
 class Bouton
 {
@@ -18,9 +21,10 @@ public:
 
     Color buttonColor;    // Couleur du bouton
     Color buttonTextColor;  // Couleur du texte du bouton
+    int fontSize;
 private:
     Rectangle buttonRect; // Rectangle représentant le bouton
-    const char* buttonText; // Texte affiché sur le bouton
+    string buttonText; // Texte affiché sur le bouton
 };
 
 #endif // BOUTON_HPP

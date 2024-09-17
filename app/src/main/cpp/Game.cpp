@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game(Vector2 const& ScreenDims) : ingame(ScreenDims, &textures, &state),
-                                        menu(ScreenDims, &state)
+                                        menu(ScreenDims, &state, &ingame)
 {
     textures.loadAll();
 }
@@ -12,7 +12,7 @@ void Game::actualize(const float dt)
     {
         ingame.actualize(dt);
     }
-    if( state == "Menu" )    // On est sur le menu
+    if( state == "Menu" || state == "choixLevel" )    // On est sur le menu
     {
         menu.actualize(dt);
     }
@@ -24,7 +24,7 @@ void Game::Draw()
     {
         ingame.Draw();
     }
-    if( state == "Menu" )
+    if( state == "Menu" || state == "choixLevel" )
     {
         menu.Draw();
     }

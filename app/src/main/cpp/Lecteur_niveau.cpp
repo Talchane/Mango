@@ -12,6 +12,7 @@
 
 vector<tuple<float, int, string>> readLevel(int numLevel)
 {
+    LOGE("Lecture du niveau : %d", numLevel);
     // ------------ Chargement fichier avec Raylib ------------
     string filePath = "Levels/lvl_" + to_string(numLevel) + ".txt";
     char* fileData = LoadFileText(filePath.c_str());

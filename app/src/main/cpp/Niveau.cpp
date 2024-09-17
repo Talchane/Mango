@@ -14,6 +14,7 @@ Niveau::Niveau(int _numlvl_) : numlvl(_numlvl_), progression(0)
 
 void Niveau::loadLvl(int _numlvl_)
 {
+    levelData.clear();
     numlvl = _numlvl_;
     progression = 0;
     levelData = readLevel(_numlvl_);

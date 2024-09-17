@@ -1,0 +1,9 @@
+s2:
+x10:
+Red
+s10:
+x10:
+Green
+s20:
+x12:
+Blue

@@ -60,7 +60,7 @@ void Ingame::Start()
         // On charge un niveau
     else
     {
-        level.loadLvl(1);
+        level.loadLvl(numLevel);
     }
 
     clockLevel.restart();
@@ -88,7 +88,8 @@ void Ingame::checkSpawn()
             }
         }
     }
-        // Dans un niveau
+
+    // ------------ Dans un niveau ------------
     else
     {
         if (level.ended())
@@ -115,6 +116,7 @@ void Ingame::checkSpawn()
 
 void Ingame::checkCollisionsTirs()
 {
+    // -------------- Check collision ennemi --------------
     for (int i = 0; i < player.balles.size(); ++i)  // Utiliser .size() pour la lisibilité
     {
         bool balleSupprimee = false;  // Marqueur pour savoir si la balle a été supprimée
@@ -141,5 +143,12 @@ void Ingame::checkCollisionsTirs()
         {
             break;
         }
+    }
+
+    // ----------- Check sortie d'écran ----------
+    for (int i = 0; i < player.balles.size(); ++i)  // Utiliser .size() pour la lisibilité
+    {
+        if (CheckCollisionPointRec(player.balles[i].position, (Rectangle){0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()}))
+            removeElement(player.balles, i);
     }
 }
