@@ -17,9 +17,6 @@ public:
 
     Ingame ingame;
     Menu menu;
-
-private:
-    Bouton startButton;
 };
 
 #endif // GAME_HPP

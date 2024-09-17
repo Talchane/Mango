@@ -1,7 +1,6 @@
 #include "Game.hpp"
 
-Game::Game(Vector2 const& ScreenDims) : startButton(ScreenDims.x / 2, ScreenDims.y / 2, 150, 150, BLUE, "Start"),
-                                        ingame(ScreenDims, &textures, &state),
+Game::Game(Vector2 const& ScreenDims) : ingame(ScreenDims, &textures, &state),
                                         menu(ScreenDims, &state)
 {
     textures.loadAll();

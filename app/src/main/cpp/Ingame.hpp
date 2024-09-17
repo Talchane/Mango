@@ -28,7 +28,7 @@ public:
     Niveau level;
     Clock clockLevel;
     Clock clockInfini;
-    int numLevel;
+    int numLevel = 0;
 
     TextureLoader * pttextures;
     std::string * ptstate;
