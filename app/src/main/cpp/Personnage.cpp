@@ -5,7 +5,7 @@ Personnage::Personnage(const Vector2 ScreenDims, TextureLoader *_textures_ptr_, 
     life(3),
     rotation(0),
     speedRotation(100),
-    shootColor(RED),
+    shootColor({255, 0, 0, 255}),   // Attention, à ne pas garder car correspondances peut changer
     position({ScreenDims.x / 2, ScreenDims.y / 2}),
     textures_ptr(_textures_ptr_),
     correspondances(_correspondances_),
@@ -13,6 +13,7 @@ Personnage::Personnage(const Vector2 ScreenDims, TextureLoader *_textures_ptr_, 
 {
     colCircle.position = position;
     colCircle.radius = 100;
+    texAct = (*textures_ptr).texEtherRed;
 }
 
 // Méthode Draw
@@ -81,4 +82,11 @@ void Personnage::setColor(const Color& col)
     else if (col == (*correspondances)["Blue"])
         texAct = (*textures_ptr).texEtherBlue;
 
+}
+
+void Personnage::reset()
+{
+    setColor((*correspondances)["Red"]);
+    clockTir.restart();
+    balles.clear();
 }

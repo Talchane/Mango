@@ -17,19 +17,20 @@ public:
     void Draw(bool debug) const;
     void actualize(const float dt);
     void setColor(const Color& col);
+    void reset();
 
     int life;
     Color shootColor;
     Vector2 position;
     vector<Ball> balles;
     Circle colCircle;
+    Clock clockTir;
 
 private:
     float globalTime;
     Texture2D texAct;
     float rotation;
     float speedRotation;
-    Clock clockTir;
     TextureLoader *textures_ptr;
     map<string, Color> *correspondances;
 };

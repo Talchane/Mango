@@ -1,9 +1,11 @@
 #include "Ingame.hpp"
 
 Ingame::Ingame(Vector2 const& ScreenDims, TextureLoader *_textures_ptr_, string * _state_ptr_) :
-        player(ScreenDims, _textures_ptr_, &correspondances),
         textures_ptr(_textures_ptr_),
-        state_ptr(_state_ptr_)
+        player(ScreenDims, _textures_ptr_, &correspondances),
+        state_ptr(_state_ptr_),
+        pauseMenu(_state_ptr_, ScreenDims, {&clockLevel, &clockInfini, &player.clockTir}),
+        pauseButton(ScreenDims.x - 150, 150, 100, 100, {200, 200, 200, 255}, "Pause")
 {
     for (int i = 0; i < size(colorButtons); ++i) {
         colorButtons[i] = Bouton(ScreenDims.x / 2 - 200 + i * 200, ScreenDims.y - 200, 150, 150, RED, "");
@@ -20,24 +22,48 @@ Ingame::Ingame(Vector2 const& ScreenDims, TextureLoader *_textures_ptr_, string 
 
 void Ingame::actualize(const float dt)
 {
-    checkSpawn();               // Check apparition des ennemis
-    player.actualize(dt);       // Actions du joueur (tirer, changer d'arme), déplacement et animation des balles
-    checkCollisionsTirs();      // Check des collisions entre les balles et les ennemis
-
-    for (int i = 0; i < ennemies.size(); ++i)
+    if ((*state_ptr) != "PauseMenu")    // Si c'est pas en pause
     {
-        // Si actualize renvoie true, alors il a touché le joueur et il faut le détruire.
-        if (ennemies[i].actualize(player, dt))   // Déplacement de l'ennemi et test collision joueur
+        checkSpawn();               // Check apparition des ennemis
+        player.actualize(
+                dt);       // Actualisation joueur, animation des balles
+        checkCollisionsTirs();      // Check des collisions entre les balles et les ennemis
+
+        for (int i = 0; i < ennemies.size(); ++i)
         {
-            removeElement(ennemies, i);
-            i--;
+            // Si actualize renvoie true, alors il a touché le joueur et il faut le détruire.
+            if (ennemies[i].actualize(player,
+                                      dt))   // Déplacement de l'ennemi et test collision joueur
+            {
+                removeElement(ennemies, i);
+                i--;
+            }
+        }
+        for (int i = 0; i < size(colorButtons); ++i)
+        {
+            if (colorButtons[i].isPressed(10))
+                player.setColor(colorButtons[i].buttonColor);
+        }
+
+        // Check interruptions
+        if (IsWindowHidden() || IsWindowMinimized())
+        {
+            LOGE("INTERRUPTION");
+            (*state_ptr) = "PauseMenu";
+            pauseMenu.show();
+        }
+
+        // Check Pause
+        if (pauseButton.isPressed())
+        {
+            (*state_ptr) = "PauseMenu";
+            pauseMenu.show();
         }
     }
-    for (int i = 0; i < size(colorButtons); ++i)
-    {
-        if (colorButtons[i].isPressed(10))
-            player.setColor(colorButtons[i].buttonColor);
-    }
+
+    if ((*state_ptr) == "PauseMenu")
+        pauseMenu.actualize();
+
 }
 
 void Ingame::Draw()
@@ -48,6 +74,11 @@ void Ingame::Draw()
         ennemies[i].Draw();
     for (int i = 0; i < size(colorButtons); ++i)
         colorButtons[i].Draw(colorButtons[i].buttonColor == player.shootColor);
+
+    if ((*state_ptr) == "PauseMenu")
+        pauseMenu.Draw();
+    else
+        pauseButton.Draw(true);
 }
 
 // Si numLevel == 0 alors on est en mode infini
@@ -63,9 +94,10 @@ void Ingame::Start()
     {
         level.loadLvl(numLevel);
     }
-
+    ennemies.clear();
     clockLevel.restart();
     clockInfini.restart();
+    player.reset();
 }
 
 
@@ -86,6 +118,7 @@ void Ingame::checkSpawn()
                 advance(it, index);
 
                 ennemies.emplace_back(correspondances[it -> first], textures_ptr->texAnneau80);
+                LOGE("cocouuuuuuuuuuuuuuuuuuuuuuuuuu");
             }
         }
     }

@@ -14,15 +14,18 @@
 #include "Stats.hpp"
 #include "Circle.hpp"
 #include "Fonctions.hpp"
+#include "Pause_menu.hpp"
 
 
-class Ingame{
+class Ingame
+{
 public:
 
     Ingame(Vector2 const& ScreenDims, TextureLoader * pttextures, string * ptstate);
 
     Bouton colorButtons[3];
 
+    TextureLoader * textures_ptr;
     Personnage player;
     vector<Ennemy> ennemies;
     Niveau level;
@@ -30,10 +33,12 @@ public:
     Clock clockInfini;
     int numLevel = 0;
 
-    TextureLoader * textures_ptr;
     string * state_ptr;
 
     map<string, Color> correspondances;
+    PauseMenu pauseMenu;
+
+    Bouton pauseButton;
 
     void actualize(const float dt);	// Actualise tout
     void Draw();    // Affiche tout

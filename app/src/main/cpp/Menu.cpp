@@ -17,6 +17,7 @@ void Menu::actualize(const float dt)
         {
             *ptstate = "Ingame";
             (*Ingame_ptr).numLevel = 0;
+            (*Ingame_ptr).Start();
         }
         else if (selectNiveauButton.isPressed())
         {

@@ -21,7 +21,7 @@ file(GLOB_RECURSE C_SOURCES "${CMAKE_SOURCE_DIR}/*.c")
 # Fetch all C++ source files recursively, excluding 'deps' source files
 file(GLOB_RECURSE CPP_SOURCES "${CMAKE_SOURCE_DIR}/*.cpp")
 
-# Filter out source files inside the 'deps' folder for both C and C++ files
+# Filter out source files inside the 'deps' folder for both C and C++ filesl
 list(FILTER C_SOURCES EXCLUDE REGEX "${CMAKE_SOURCE_DIR}/deps/.*")
 list(FILTER CPP_SOURCES EXCLUDE REGEX "${CMAKE_SOURCE_DIR}/deps/.*")
 

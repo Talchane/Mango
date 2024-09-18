@@ -4,6 +4,7 @@
 #include "Texture_loader.hpp"
 #include "Ingame.hpp"
 #include "Menu.hpp"
+#include "Fonctions.hpp"
 
 class Game {
 public:
