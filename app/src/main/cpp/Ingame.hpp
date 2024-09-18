@@ -19,7 +19,7 @@
 class Ingame{
 public:
 
-    Ingame(Vector2 const& ScreenDims, TextureLoader * pttextures, std::string * ptstate);
+    Ingame(Vector2 const& ScreenDims, TextureLoader * pttextures, string * ptstate);
 
     Bouton colorButtons[3];
 
@@ -30,8 +30,8 @@ public:
     Clock clockInfini;
     int numLevel = 0;
 
-    TextureLoader * pttextures;
-    std::string * ptstate;
+    TextureLoader * textures_ptr;
+    string * state_ptr;
 
     map<string, Color> correspondances;
 

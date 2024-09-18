@@ -6,7 +6,7 @@
 
 TextureLoader::TextureLoader()
 {
-
+    loadAll();
 }
 
 Vector2 TextureLoader::getMobTextureDims()
@@ -17,7 +17,7 @@ Vector2 TextureLoader::getMobTextureDims()
 void TextureLoader::loadAll()
 {
     texAnneau80 = LoadTexture("cercle_contour_80px.png");
-    texEtherBlack = LoadTexture("textures_v1/mobs/ether/ether_black.png");
+    texEtherRed = LoadTexture("textures_v1/mobs/ether/ether_red.png");
+    texEtherGreen = LoadTexture("textures_v1/mobs/ether/ether_green.png");
     texEtherBlue = LoadTexture("textures_v1/mobs/ether/ether_blue.png");
-    texEtherGold = LoadTexture("textures_v1/mobs/ether/ether_gold.png");
 }

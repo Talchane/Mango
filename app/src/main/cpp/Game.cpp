@@ -1,9 +1,10 @@
 #include "Game.hpp"
 
-Game::Game(Vector2 const& ScreenDims) : ingame(ScreenDims, &textures, &state),
+Game::Game(Vector2 const& ScreenDims) : textures(),
+                                        ingame(ScreenDims, &textures, &state),
                                         menu(ScreenDims, &state, &ingame)
 {
-    textures.loadAll();
+
 }
 
 void Game::actualize(const float dt)

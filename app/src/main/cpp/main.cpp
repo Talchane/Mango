@@ -35,7 +35,7 @@ int main()
         game.actualize(dt);
 
         BeginDrawing();
-        ClearBackground((Color){230, 230, 230});
+        ClearBackground((Color){220, 220, 220, 255});
         game.Draw();
         EndDrawing();
     }

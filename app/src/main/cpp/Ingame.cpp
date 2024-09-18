@@ -1,8 +1,9 @@
 #include "Ingame.hpp"
 
-Ingame::Ingame(Vector2 const& ScreenDims, TextureLoader * pttext, std::string * ptst) : player(ScreenDims),
-                                                                                        pttextures(pttext),
-                                                                                        ptstate(ptst)
+Ingame::Ingame(Vector2 const& ScreenDims, TextureLoader *_textures_ptr_, string * _state_ptr_) :
+        player(ScreenDims, _textures_ptr_, &correspondances),
+        textures_ptr(_textures_ptr_),
+        state_ptr(_state_ptr_)
 {
     for (int i = 0; i < size(colorButtons); ++i) {
         colorButtons[i] = Bouton(ScreenDims.x / 2 - 200 + i * 200, ScreenDims.y - 200, 150, 150, RED, "");
@@ -84,7 +85,7 @@ void Ingame::checkSpawn()
                 auto it(correspondances.begin());
                 advance(it, index);
 
-                ennemies.emplace_back(correspondances[it -> first], pttextures->texAnneau80);
+                ennemies.emplace_back(correspondances[it -> first], textures_ptr->texAnneau80);
             }
         }
     }
@@ -101,7 +102,7 @@ void Ingame::checkSpawn()
             {
                 string newType(level.getNextType());
 
-                ennemies.emplace_back(correspondances[newType], pttextures->texAnneau80);
+                ennemies.emplace_back(correspondances[newType], textures_ptr->texAnneau80);
             }
             level.nextStep();
 
