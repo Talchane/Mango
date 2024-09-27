@@ -4,7 +4,7 @@
 Personnage::Personnage(const Vector2 ScreenDims, TextureLoader *_textures_ptr_, map<string, Color> *_correspondances_) :
     life(3),
     rotation(0),
-    speedRotation(100),
+    speedRotation(0),
     shootColor({255, 0, 0, 255}),   // Attention, à ne pas garder car correspondances peut changer
     position({ScreenDims.x / 2, ScreenDims.y / 2}),
     textures_ptr(_textures_ptr_),
@@ -41,12 +41,13 @@ void Personnage::actualize(const float dt)
 {
     globalTime += dt;
 
-    // --- Check tir ---
-    if (clockTir.getElapsedTime() > 0.1f)
+    int touchCount = GetTouchPointCount();
+    if (touchCount > 0)
     {
-        int touchCount = GetTouchPointCount();
-        if (touchCount > 0)
+        // --- Check tir ---
+        if (clockTir.getElapsedTime() > 0.1f)
         {
+
             Vector2 touchPosition{GetTouchPosition(0)};
 
             // Sert uniquement à donner la rotation aux balles
@@ -54,7 +55,16 @@ void Personnage::actualize(const float dt)
             balles.emplace_back(position, rotationRad, shootColor); // On crée une nouvelle balle
             clockTir.restart();
         }
+        // acceleration rotation
+        speedRotation += 90 * dt;   // Accélération de 90 degrés par seconde carré
     }
+    else
+    {
+        speedRotation -= 90 * dt;
+        if (speedRotation < 0)
+            speedRotation = 0;
+    }
+
 
     // Actualisation de la rotation de la balle
 
